@@ -1,5 +1,6 @@
 package com.whiz.clients.statsservice.service;
 
+import com.whiz.clients.statsservice.config.exception.*;
 import com.whiz.clients.statsservice.controller.dto.*;
 import com.whiz.clients.statsservice.proxy.*;
 import com.whiz.clients.statsservice.service.impl.*;
@@ -30,6 +31,18 @@ public class StatsServiceTest {
         StatsDTO clientsKpi = statsService.getClientsKpi();
         Assertions.assertEquals(6, clientsKpi.getAverageAge());
         Assertions.assertEquals(3.29, clientsKpi.getStandardDeviation());
+    }
+
+    @Test
+    void getClientsKpi_ErrorInvokingClientService() {
+        Mockito.when(clientProxy.getAll()).thenReturn(ResponseEntity.noContent().build());
+        Assertions.assertThrows(BusinessException.class, () -> statsService.getClientsKpi());
+    }
+
+    @Test
+    void getClientsKpi_NoClientsRegistered() {
+        Mockito.when(clientProxy.getAll()).thenReturn(ResponseEntity.ok(new ArrayList<>()));
+        Assertions.assertThrows(BusinessException.class, () -> statsService.getClientsKpi());
     }
 
     private ResponseEntity<List<ClientDTO>> getClientsServiceGetResponse() {
