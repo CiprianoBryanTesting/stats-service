@@ -4,15 +4,16 @@ import com.whiz.clients.statsservice.controller.dto.*;
 import com.whiz.clients.statsservice.proxy.*;
 import com.whiz.clients.statsservice.service.*;
 import com.whiz.clients.statsservice.util.*;
+import lombok.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
-    @Autowired
-    private ClientProxy clientProxy;
+    private final ClientProxy clientProxy;
 
     @Override
     public StatsDTO getClientsKpi() {
