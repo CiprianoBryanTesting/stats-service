@@ -2,8 +2,10 @@ package com.whiz.clients.statsservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.*;
 import org.springframework.cloud.openfeign.*;
 
+@EnableEurekaClient
 @EnableFeignClients
 @SpringBootApplication
 public class StatsServiceApplication {

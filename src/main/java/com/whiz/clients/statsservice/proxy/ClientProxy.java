@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
-@FeignClient(name = "client-service", url = "localhost:8001")
+@FeignClient(name = "client-service")
 public interface ClientProxy {
     @GetMapping("/client")
     ResponseEntity<List<ClientDTO>> getAll();
