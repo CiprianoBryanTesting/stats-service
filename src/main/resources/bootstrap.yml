@@ -1,6 +1,11 @@
 server:
   port: 8101
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8902/eureka/
+
 management:
   endpoints:
     web:
@@ -12,6 +17,8 @@ feign:
     enabled: false
 
 spring:
+  application:
+    name: stats-service
   sleuth:
     sampler:
       probability: 1.0
