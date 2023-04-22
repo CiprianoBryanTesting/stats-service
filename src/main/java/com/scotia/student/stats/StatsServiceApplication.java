@@ -2,9 +2,9 @@ package com.scotia.student.stats;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.*;
+import reactivefeign.spring.config.*;
 
-@EnableFeignClients
+@EnableReactiveFeignClients
 @SpringBootApplication
 public class StatsServiceApplication {
 

@@ -1,6 +1,5 @@
 package com.scotia.student.stats.controller;
 
-import com.scotia.student.stats.controller.dto.*;
 import com.scotia.student.stats.service.*;
 import com.scotia.student.stats.util.enums.*;
 import io.github.resilience4j.circuitbreaker.annotation.*;
@@ -8,6 +7,7 @@ import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.*;
 
 @RestController
 @RequestMapping("/stats")
@@ -19,12 +19,12 @@ public class StatsController {
 
     @GetMapping("/students")
     @CircuitBreaker(name = "students-stats", fallbackMethod = "apiFallBackStudentsStats")
-    public ResponseEntity<StatsDTO> getStudentsAgeAverage() {
-        return ResponseEntity.ok(statsService.getStudentsAgeAverage());
+    public Mono<ResponseEntity<?>> getStudentsAgeAverage() {
+        return statsService.getStudentsAgeAverage().map(ResponseEntity::ok);
     }
 
-    public ResponseEntity<?> apiFallBackStudentsStats(Exception exception) {
+    public Mono<ResponseEntity<?>> apiFallBackStudentsStats(Exception exception) {
         log.info(StatsResponse.INTERNAL_SERVER_ERROR.getMessage() + ", Error={}", exception.getMessage());
-        return ResponseEntity.noContent().build();
+        return Mono.just(ResponseEntity.noContent().build());
     }
 }
