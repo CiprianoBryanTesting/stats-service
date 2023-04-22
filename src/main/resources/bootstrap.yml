@@ -1,31 +1,8 @@
-server:
-  port: 8101
-
 spring:
   application:
-    name: stats-service
-  sleuth:
-    sampler:
-      probability: 1.0
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
-feign:
-  circuitbreaker:
-    enabled: false
-
-resilience4j:
-  retry:
-    instances:
-      students-stats:
-        max-attempts: 5
-        wait-duration: 1s
-        enable-exponential-backoff: true
-
-proxy:
-  student-service:
-    url: http://localhost:8001
+    name: stats-react-service
+  cloud:
+    config:
+      uri: http://localhost:8901
+  profiles:
+    active: dev
