@@ -7,7 +7,7 @@ import reactor.core.publisher.*;
 
 import java.util.*;
 
-@ReactiveFeignClient(name = "student-react-service", url="${proxy.student-service.url}")
+@ReactiveFeignClient(name = "student-service", url="${proxy.student-service.url}")
 public interface StudentProxy {
     @GetMapping("/student/all")
     Mono<List<StudentDTO>> getAll();
